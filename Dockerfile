@@ -22,13 +22,15 @@ COPY . .
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
 
-# Expose port
-EXPOSE 8000
+# Expose port (Cloud Run uses 8080, local dev uses 8000)
+EXPOSE 8000 8080
 
 # Health check (using urllib, no extra dependencies)
+# Uses PORT env var, defaults to 8000 for local dev
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/', timeout=5)"
+    CMD python -c "import os, urllib.request; urllib.request.urlopen(f'http://localhost:{os.getenv(\"PORT\", \"8000\")}/', timeout=5)"
 
 # Run with production settings
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+# Use PORT environment variable (Cloud Run sets this to 8080)
+CMD uvicorn api:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1
 

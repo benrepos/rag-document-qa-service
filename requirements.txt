@@ -1,23 +1,24 @@
-# LangChain and AI - compatible versions without proxies bug
-langchain
-langchain-community
-langchain-openai
-openai
+# LangChain and OpenAI
+langchain==0.3.7
+langchain-community==0.3.7
+langchain-openai==0.3.0
+openai==1.58.1
 
 # Vector stores and embeddings
-faiss-cpu
-tiktoken
+faiss-cpu==1.9.0
+numpy==1.26.4
+tiktoken==0.8.0
 
-# PDF processing
-PyPDF2
+# PDF
+PyPDF2==3.0.1
 
-# Web framework
-fastapi
-uvicorn[standard]
-python-multipart
+# Web
+fastapi==0.115.4
+uvicorn[standard]==0.32.0
+python-multipart==0.0.17
 
 # Rate limiting
-slowapi
+slowapi==0.1.9
 
 # Google Cloud
-google-cloud-firestore
+google-cloud-firestore==2.19.0
